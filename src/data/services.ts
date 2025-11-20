@@ -86,8 +86,6 @@ export const services: Service[] = [
 
 export const navigationLinks = [
   { label: 'Home', href: '#hero' },
-  { label: 'Services', href: '#services' },
-  { label: 'Portfolio', href: '#portfolio' },
-  { label: 'About', href: '#about' },
+  { label: 'Services', href: '#portfolio' },
   { label: 'Contact', href: '#contact' },
 ];
