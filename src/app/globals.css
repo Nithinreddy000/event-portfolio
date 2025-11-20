@@ -2,7 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Madloud Font */
+@font-face {
+  font-family: 'Madloud';
+  src: url('/fonts/madloud/TF-Madloud-DEMO-BF64914a2a5cc96.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
+  :root {
+    --font-madloud: 'Madloud', cursive;
+  }
+
   html {
     @apply scroll-smooth;
   }

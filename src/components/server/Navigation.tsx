@@ -29,7 +29,7 @@ export default function Navigation() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="text-slate-300 hover:text-white transition-colors duration-300 font-medium"
+                  className="text-slate-300 hover:text-white transition-colors duration-300 font-display text-xl md:text-2xl"
                 >
                   {link.label}
                 </a>

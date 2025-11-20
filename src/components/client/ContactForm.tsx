@@ -34,17 +34,22 @@ export default function ContactForm() {
     setSubmitStatus('idle');
 
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      // Create mailto link with form data
+      const subject = encodeURIComponent(`Event Inquiry - ${data.eventType}`);
+      const body = encodeURIComponent(
+        `Name: ${data.name}\n` +
+        `Email: ${data.email}\n` +
+        `Phone: ${data.phone}\n` +
+        `Event Type: ${data.eventType}\n\n` +
+        `Message:\n${data.message}`
+      );
 
-      // In production, replace with actual API call:
-      // const response = await fetch('/api/contact', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(data),
-      // });
+      const mailtoLink = `mailto:bluemoontalesinfo@gmail.com?subject=${subject}&body=${body}`;
 
-      console.log('Form data:', data);
+      // Open email client
+      window.location.href = mailtoLink;
+
+      // Show success message
       setSubmitStatus('success');
       reset();
     } catch (error) {
@@ -56,7 +61,7 @@ export default function ContactForm() {
   };
 
   return (
-    <section className="section-padding bg-gradient-to-b from-slate-950 to-blue-moon-950" id="contact">
+    <section className="pt-20 pb-6 px-6 md:px-12 lg:px-20 bg-gradient-to-b from-slate-950 to-blue-moon-950" id="contact">
       <div className="container-custom mx-auto max-w-7xl">
         {/* Header */}
         <div className="mb-16 text-center">
@@ -64,7 +69,7 @@ export default function ContactForm() {
             <span className="text-gradient-blue">Let's work together.</span>
           </h2>
           <p className="text-lg md:text-xl text-slate-400">
-            Or reach us via: <a href="mailto:hello@bluemoontales.com" className="text-gold-accent-400 hover:text-gold-accent-300 transition-colors">hello@bluemoontales.com</a>
+            Or reach us via: <a href="mailto:bluemoontalesinfo@gmail.com" className="text-gold-accent-400 hover:text-gold-accent-300 transition-colors">bluemoontalesinfo@gmail.com</a>
           </p>
         </div>
 
@@ -202,22 +207,12 @@ export default function ContactForm() {
               )}
             </div>
 
-            {/* Attachment Button and Submit */}
-            <div className="flex items-center gap-4">
-              <button
-                type="button"
-                className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
-                </svg>
-                <span className="text-sm">Add attachment</span>
-              </button>
-
+            {/* Submit Button */}
+            <div className="flex justify-end">
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="ml-auto px-8 py-4 rounded-xl bg-blue-moon-600 hover:bg-blue-moon-700 text-white font-medium transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                className="px-8 py-4 rounded-xl bg-blue-moon-600 hover:bg-blue-moon-700 text-white font-medium transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
               >
                 {isSubmitting ? (
                   <>

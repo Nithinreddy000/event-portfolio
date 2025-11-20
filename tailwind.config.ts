@@ -37,7 +37,7 @@ export default {
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'sans-serif'],
-        display: ['var(--font-playfair)', 'serif'],
+        display: ['var(--font-madloud)', 'cursive'],
       },
       backdropBlur: {
         xs: '2px',
