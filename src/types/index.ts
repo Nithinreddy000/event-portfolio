@@ -5,6 +5,8 @@ export interface Service {
   title: string;
   description: string;
   icon: string;
+  image: string;
+  category: 'annual' | 'family' | 'team' | 'institutional' | 'corporate' | 'wedding' | 'social' | 'mice' | 'concert';
   features: string[];
 }
 

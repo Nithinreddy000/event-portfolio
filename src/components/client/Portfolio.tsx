@@ -2,80 +2,25 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { PortfolioItem } from '@/types';
-
-// Placeholder portfolio data
-const portfolioItems: PortfolioItem[] = [
-  {
-    id: '1',
-    title: 'Elegant Garden Wedding',
-    category: 'wedding',
-    image: 'https://picsum.photos/seed/wedding1/600/800',
-    description: 'A magical outdoor celebration',
-    date: '2024-06-15',
-    location: 'Rose Garden Estate',
-  },
-  {
-    id: '2',
-    title: 'Tech Summit 2024',
-    category: 'corporate',
-    image: 'https://picsum.photos/seed/corporate1/600/400',
-    description: 'Annual technology conference',
-    date: '2024-05-20',
-    location: 'Convention Center',
-  },
-  {
-    id: '3',
-    title: 'Summer Music Festival',
-    category: 'concert',
-    image: 'https://picsum.photos/seed/concert1/800/600',
-    description: 'Three-day outdoor music event',
-    date: '2024-07-10',
-    location: 'City Park',
-  },
-  {
-    id: '4',
-    title: 'Luxury Beach Wedding',
-    category: 'wedding',
-    image: 'https://picsum.photos/seed/wedding2/600/800',
-    description: 'Sunset ceremony by the ocean',
-    date: '2024-04-22',
-    location: 'Coastal Resort',
-  },
-  {
-    id: '5',
-    title: 'Product Launch Gala',
-    category: 'corporate',
-    image: 'https://picsum.photos/seed/corporate2/600/400',
-    description: 'High-profile product unveiling',
-    date: '2024-03-15',
-    location: 'Grand Hotel Ballroom',
-  },
-  {
-    id: '6',
-    title: 'Jazz Night Under Stars',
-    category: 'concert',
-    image: 'https://picsum.photos/seed/concert2/800/600',
-    description: 'Intimate evening concert',
-    date: '2024-08-05',
-    location: 'Amphitheater',
-  },
-];
+import { Service } from '@/types';
+import { services } from '@/data/services';
 
 const filterCategories = [
-  { label: 'All', value: 'all' },
-  { label: 'Weddings', value: 'wedding' },
+  { label: 'All Services', value: 'all' },
   { label: 'Corporate', value: 'corporate' },
+  { label: 'Weddings', value: 'wedding' },
+  { label: 'Social', value: 'social' },
   { label: 'Concerts', value: 'concert' },
+  { label: 'MICE', value: 'mice' },
 ];
 
 export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState('all');
 
-  const filteredItems =
+  const filteredServices =
     activeFilter === 'all'
-      ? portfolioItems
-      : portfolioItems.filter((item) => item.category === activeFilter);
+      ? services
+      : services.filter((service) => service.category === activeFilter);
 
   return (
     <section className="section-padding bg-gradient-to-b from-slate-900 to-slate-950" id="portfolio">
@@ -83,10 +28,10 @@ export default function Portfolio() {
         {/* Header */}
         <div className="mb-12 text-center">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-4">
-            <span className="text-gradient-blue">Our Portfolio</span>
+            <span className="text-gradient-blue">Our Services</span>
           </h2>
           <p className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto">
-            Memorable moments we've crafted for our clients
+            Transforming visions into unforgettable experiences across every celebration
           </p>
         </div>
 
@@ -107,10 +52,10 @@ export default function Portfolio() {
           ))}
         </div>
 
-        {/* Portfolio Grid */}
+        {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredItems.map((item, index) => (
-            <PortfolioCard key={item.id} item={item} index={index} />
+          {filteredServices.map((service, index) => (
+            <ServiceCard key={service.id} service={service} index={index} />
           ))}
         </div>
       </div>
@@ -118,12 +63,12 @@ export default function Portfolio() {
   );
 }
 
-interface PortfolioCardProps {
-  item: PortfolioItem;
+interface ServiceCardProps {
+  service: Service;
   index: number;
 }
 
-function PortfolioCard({ item, index }: PortfolioCardProps) {
+function ServiceCard({ service, index }: ServiceCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -137,8 +82,8 @@ function PortfolioCard({ item, index }: PortfolioCardProps) {
       {/* Image */}
       <div className="relative w-full h-full">
         <Image
-          src={item.image}
-          alt={item.title}
+          src={service.image}
+          alt={service.title}
           fill
           className="object-cover transition-transform duration-700 group-hover:scale-110"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -154,32 +99,44 @@ function PortfolioCard({ item, index }: PortfolioCardProps) {
         <div className="absolute bottom-0 left-0 right-0 p-6">
           {/* Category Badge */}
           <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-gold-accent-500 text-slate-950 mb-3">
-            {item.category.charAt(0).toUpperCase() + item.category.slice(1)}
+            {service.category.charAt(0).toUpperCase() + service.category.slice(1)}
           </span>
+
+          {/* Icon */}
+          <div className="text-4xl mb-3">{service.icon}</div>
 
           {/* Title */}
           <h3 className="text-2xl font-display font-bold mb-2 text-white">
-            {item.title}
+            {service.title}
           </h3>
 
           {/* Description */}
-          <p className="text-slate-300 mb-4">{item.description}</p>
+          <p className="text-slate-300 mb-4">{service.description}</p>
 
-          {/* Meta Info */}
-          <div className="flex items-center gap-4 text-sm text-slate-400">
-            {item.location && (
-              <span className="flex items-center gap-1">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path
-                    fillRule="evenodd"
-                    d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                {item.location}
-              </span>
-            )}
-          </div>
+          {/* Features - Show on hover */}
+          {isHovered && (
+            <ul className="space-y-2 animate-fade-in">
+              {service.features.map((feature, idx) => (
+                <li
+                  key={idx}
+                  className="flex items-center gap-2 text-sm text-slate-400"
+                >
+                  <svg
+                    className="w-4 h-4 text-gold-accent-400 flex-shrink-0"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </div>

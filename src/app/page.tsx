@@ -7,10 +7,6 @@ const Hero = dynamic(() => import('@/components/client/Hero'), {
   loading: () => <div className="h-screen bg-slate-950" />,
 });
 
-const Services = dynamic(() => import('@/components/client/Services'), {
-  loading: () => <div className="h-screen bg-slate-950" />,
-});
-
 const Portfolio = dynamic(() => import('@/components/client/Portfolio'), {
   loading: () => <div className="min-h-screen bg-slate-950" />,
 });
@@ -30,10 +26,7 @@ export default function Home() {
         {/* Hero Section */}
         <Hero />
 
-        {/* Services Section */}
-        <Services />
-
-        {/* Portfolio Section */}
+        {/* Services Portfolio Section */}
         <Portfolio />
 
         {/* Contact Section */}
